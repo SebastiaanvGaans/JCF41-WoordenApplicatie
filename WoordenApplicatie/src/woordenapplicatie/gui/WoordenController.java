@@ -135,7 +135,28 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        HashSet<String> curr = new HashSet<String>();
+        HashMap<String, String> concordatie = new HashMap<>();
+        int line = 1;
+        
+        for (String s : this.taInput.getText().toLowerCase().replace(",", "").split("\n")) {
+            if(!s.equals("")){
+                for(String sub: s.split(" ")){
+                    if (!concordatie.containsKey(sub)) {
+                        concordatie.put(sub, Integer.toString(line));
+                    } else {
+                        concordatie.put(sub, concordatie.get(sub) + ", " + Integer.toString(line));
+                    }
+                }
+            }
+            line++;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (String key : concordatie.keySet()) {
+            sb.append(key + ":  " + concordatie.get(key) + "\n");
+        }
+        this.taOutput.setText(sb.toString());
     }
 }
 
