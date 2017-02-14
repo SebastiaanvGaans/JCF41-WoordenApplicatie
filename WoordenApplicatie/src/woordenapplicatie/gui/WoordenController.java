@@ -12,8 +12,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,7 +69,7 @@ public class WoordenController implements Initializable {
     
     @FXML
     private void aantalAction(ActionEvent event) {
-        //Computatie tijd = O(N)
+        //RunTime tijd = O(N)
         int wordCount = 0;
         Set<String> uniqueWords = new HashSet<String>();
         
@@ -83,7 +85,25 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        //RunTime tijd = O(N)
+        
+        TreeSet<String> sortedUniqueWords = new TreeSet<String>();
+        
+        for(String s :this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")){
+            if(!s.equals("")) sortedUniqueWords.add(s);
+        }
+        StringBuilder sb = new StringBuilder();
+        
+        for(String s : sortedUniqueWords.descendingSet()){
+            sb.append(s + "\n");
+        }
+        /*
+        Iterator it = sortedUniqueWords.descendingIterator();
+        while (it.hasNext()) {
+            sb.append(it.next() + "\n");
+        }*/
+        
+        this.taOutput.setText(sb.toString());
     }
 
     @FXML
