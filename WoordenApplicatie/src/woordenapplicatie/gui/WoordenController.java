@@ -5,16 +5,15 @@ package woordenapplicatie.gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,27 +27,27 @@ import javafx.scene.control.TextArea;
  * @author frankcoenen
  */
 public class WoordenController implements Initializable {
-    
-   private static final String DEFAULT_TEXT =   "Een, twee, drie, vier\n" +
-                                                "Hoedje van, hoedje van\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "Heb je dan geen hoedje meer\n" +
-                                                "Maak er één van bordpapier\n" +
-                                                "Eén, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van, hoedje van\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "En als het hoedje dan niet past\n" +
-                                                "Zetten we 't in de glazenkas\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van papier";
-    
+
+    private static final String DEFAULT_TEXT = "Een, twee, drie, vier\n"
+            + "Hoedje van, hoedje van\n"
+            + "Een, twee, drie, vier\n"
+            + "Hoedje van papier\n"
+            + "\n"
+            + "Heb je dan geen hoedje meer\n"
+            + "Maak er één van bordpapier\n"
+            + "Eén, twee, drie, vier\n"
+            + "Hoedje van papier\n"
+            + "\n"
+            + "Een, twee, drie, vier\n"
+            + "Hoedje van, hoedje van\n"
+            + "Een, twee, drie, vier\n"
+            + "Hoedje van papier\n"
+            + "\n"
+            + "En als het hoedje dan niet past\n"
+            + "Zetten we 't in de glazenkas\n"
+            + "Een, twee, drie, vier\n"
+            + "Hoedje van papier";
+
     @FXML
     private Button btAantal;
     @FXML
@@ -66,15 +65,15 @@ public class WoordenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         taInput.setText(DEFAULT_TEXT);
     }
-    
+
     @FXML
     private void aantalAction(ActionEvent event) {
         //RunTime tijd = O(N)
         int wordCount = 0;
         Set<String> uniqueWords = new HashSet<String>();
-        
-        for(String s :this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")){
-            if(!s.equals("")){
+
+        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
+            if (!s.equals("")) {
                 //System.out.println(s);
                 wordCount++;
                 uniqueWords.add(s);
@@ -86,34 +85,77 @@ public class WoordenController implements Initializable {
     @FXML
     private void sorteerAction(ActionEvent event) {
         //RunTime tijd = O(N)
-        
         TreeSet<String> sortedUniqueWords = new TreeSet<String>();
-        
-        for(String s :this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")){
-            if(!s.equals("")) sortedUniqueWords.add(s);
+
+        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
+            if (!s.equals("")) {
+                sortedUniqueWords.add(s);
+            }
         }
         StringBuilder sb = new StringBuilder();
-        
-        for(String s : sortedUniqueWords.descendingSet()){
+
+        for (String s : sortedUniqueWords.descendingSet()) {
             sb.append(s + "\n");
         }
         /*
-        Iterator it = sortedUniqueWords.descendingIterator();
-        while (it.hasNext()) {
-            sb.append(it.next() + "\n");
-        }*/
-        
+         Iterator it = sortedUniqueWords.descendingIterator();
+         while (it.hasNext()) {
+         sb.append(it.next() + "\n");
+         }*/
         this.taOutput.setText(sb.toString());
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        //Map<String, Integer> freq = new 
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        ValueComparator bvc = new ValueComparator(map);
+        TreeMap<String, Integer> sorted_map = new TreeMap<String, Integer>(bvc);
+
+        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
+            if (!s.equals("")) {
+                if (!map.containsKey(s)) {
+                    map.put(s, 1);
+                } else {
+                    map.put(s, map.get(s) + 1);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+
+        sorted_map.putAll(map);
+        for (Map.Entry<String, Integer> entry : sorted_map.entrySet()) {
+            sb.append(entry.getKey() + ":    " + entry.getValue() + "\n");
+        }
+
+        this.taOutput.setText(sb.toString());
+
     }
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-   
+}
+
+class ValueComparator implements Comparator<String> {
+
+    Map<String, Integer> base;
+
+    public ValueComparator(Map<String, Integer> base) {
+        this.base = base;
+    }
+
+    public int compare(String a, String b) {
+        if (base.get(a) == base.get(b)) {
+            return a.compareTo(b);
+        } else {
+            if (base.get(a) <= base.get(b)) {
+                return -1;
+            } else {
+                return 1;
+            } // returning 0 would merge keys
+        }
+    }
 }
