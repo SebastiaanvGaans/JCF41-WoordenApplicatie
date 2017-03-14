@@ -99,7 +99,7 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-        //Map<String, Integer> freq = new 
+        
         Map<String, Integer> sortedMap = ww.frequentie(this.taInput.getText());
 
         StringBuilder sb = new StringBuilder();

@@ -24,6 +24,7 @@ public class WoordenWerker {
     }
     
     public TreeSet<String> sorteer(String source) {
+        
         TreeSet<String> sortedUniqueWords = new TreeSet<>();
 
         for (String s : this.woordenOpsplitsen(source)) {
@@ -89,7 +90,6 @@ public class WoordenWerker {
             for (String w : s.split(" ")) {
                 if (!w.equals("")) {
                     words.add(w);
-                    
                 }
             }
         }
