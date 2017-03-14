@@ -6,6 +6,7 @@ package woordenapplicatie.gui;
  * and open the template in the editor.
  */
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -59,6 +60,8 @@ public class WoordenController implements Initializable {
     private Button btConcordantie;
     @FXML
     private TextArea taOutput;
+    
+    private WoordenWerker ww = new WoordenWerker();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,12 +74,10 @@ public class WoordenController implements Initializable {
         int wordCount = 0;
         Set<String> uniqueWords = new HashSet<>();
 
-        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
-            if (!s.equals("")) {
-                //System.out.println(s);
-                wordCount++;
-                uniqueWords.add(s);
-            }
+        for (String s : ww.woordenOpsplitsen(this.taInput.getText())) {
+            System.out.println(s);
+            wordCount++;
+            uniqueWords.add(s);
         }
         this.taOutput.setText("Totaal aantal woorden:  " + wordCount + "\nAantal verschillende woorden:  " + uniqueWords.size());
     }
@@ -84,73 +85,36 @@ public class WoordenController implements Initializable {
     @FXML
     private void sorteerAction(ActionEvent event) {
         //RunTime tijd = O(N)
-        TreeSet<String> sortedUniqueWords = new TreeSet<>();
 
-        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
-            if (!s.equals("")) {
-                sortedUniqueWords.add(s);
-            }
-        }
+        TreeSet<String> sortedUniqueWords = ww.sorteer(this.taInput.getText());
+
         StringBuilder sb = new StringBuilder();
-
-        sortedUniqueWords.descendingSet().stream().forEach((s) -> {
+        for (String s : sortedUniqueWords.descendingSet()) {
             sb.append(s + "\n");
-        });
-
+        }
         this.taOutput.setText(sb.toString());
     }
+
+    
 
     @FXML
     private void frequentieAction(ActionEvent event) {
         //Map<String, Integer> freq = new 
+        Map<String, Integer> sortedMap = ww.frequentie(this.taInput.getText());
 
-        Map<String, Integer> map = new HashMap<>();
-        ValueComparator vc = new ValueComparator(map);
-        Map<String, Integer> sortedMap = new TreeMap<>(vc);
-
-        for (String s : this.taInput.getText().replace("\n", " ").replace(",", "").split(" ")) {
-            if (!s.equals("")) {
-                if (!map.containsKey(s)) {
-                    map.put(s, 1);
-                } else {
-                    map.put(s, map.get(s) + 1);
-                }
-            }
-        }
         StringBuilder sb = new StringBuilder();
-
-        sortedMap.putAll(map);
         sortedMap.entrySet().stream().forEach((entry) -> {
             sb.append(entry.getKey() + ":    " + entry.getValue() + "\n");
         });
 
         this.taOutput.setText(sb.toString());
-
     }
+
+    
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        Set<String> curr = new HashSet<>();
-        Map<String, String> concordatie = new HashMap<>();
-        Set<String> regel = new HashSet<>();
-        int line = 1;
-        
-        for (String s : this.taInput.getText().toLowerCase().replace(",", "").split("\n")) {
-            if(!s.equals("")){
-                for(String sub: s.split(" ")){
-                    regel.add((sub));
-                }
-                for(String uniqueSub: regel){
-                    if (!concordatie.containsKey(uniqueSub)) {
-                        concordatie.put(uniqueSub, Integer.toString(line));
-                    } else {
-                        concordatie.put(uniqueSub, concordatie.get(uniqueSub) + ", " + Integer.toString(line));
-                    }
-                }
-            }
-            regel.clear();
-            line++;
-        }
+        Map<String, String> concordatie = ww.concordatie(this.taInput.getText());
         
         StringBuilder sb = new StringBuilder();
         concordatie.keySet().stream().forEach((key) -> {
@@ -158,26 +122,9 @@ public class WoordenController implements Initializable {
         });
         this.taOutput.setText(sb.toString());
     }
+    
 }
 
-class ValueComparator implements Comparator<String> {
+    
 
-    Map<String, Integer> base;
 
-    public ValueComparator(Map<String, Integer> base) {
-        this.base = base;
-    }
-
-    @Override
-    public int compare(String a, String b) {
-        if (base.get(a) == base.get(b)) {
-            return a.compareTo(b);
-        } else {
-            if (base.get(a) <= base.get(b)) {
-                return -1;
-            } else {
-                return 1;
-            } // returning 0 would merge keys
-        }
-    }
-}
