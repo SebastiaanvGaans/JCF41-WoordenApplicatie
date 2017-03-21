@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.After;
@@ -5609,32 +5611,14 @@ public class LoadTest {
     public LoadTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
+    @Test
+    public void aantalTest(){
+    ArrayList<Integer> list = ww.aantal(load);
+     
+     assertEquals(list.get(0), list.get(1));
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-    
-    /**asdfasdfasdfasdf
-     *dfasddfasdfasdfasdf
-     */
-        
     @Test
     public void sorteerTest(){
      TreeSet<String> alphabetA = ww.sorteer(load);
@@ -5644,4 +5628,22 @@ public class LoadTest {
      }
      assertTrue(sb.toString().equals(load));
     }
+    
+    @Test
+    public void frequentieTest(){
+        Map<String, Integer> temp = ww.frequentie(load);
+        temp.entrySet().stream().forEach((entry) -> {
+            assertEquals(1, (int)entry.getValue());
+        });
+    }
+    
+    @Test
+    public void concordatieTest(){
+        Map<String, ArrayList<Integer>> temp = ww.concordatie(load);
+        
+        for(Map.Entry<String, ArrayList<Integer>> entry: temp.entrySet()){
+            assertNotNull(entry.getValue().get(0));
+        }
+    }
+    
 }

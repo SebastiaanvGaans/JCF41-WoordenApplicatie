@@ -107,12 +107,17 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-        Map<String, String> concordatie = ww.concordatie(this.taInput.getText());
+        Map<String, ArrayList<Integer>> concordatie = ww.concordatie(this.taInput.getText());
         
         StringBuilder sb = new StringBuilder();
-        concordatie.keySet().stream().forEach((key) -> {
-            sb.append(key + ":  " + concordatie.get(key) + "\n");
-        });
+        
+        for(Map.Entry<String, ArrayList<Integer>> entry: concordatie.entrySet()){
+            sb.append(entry.getKey()).append(":  ");
+            for(int i: entry.getValue()){
+                sb.append(i + ", ");
+            }
+            sb.append("\n");
+        }
         this.taOutput.setText(sb.toString());
     }
     

@@ -63,8 +63,8 @@ public class WoordenWerker {
         return sortedMap;
     }
     
-    public Map<String,String> concordatie(String source){
-        Map<String, String> concordatie = new HashMap<>();
+    public Map<String, ArrayList<Integer>> concordatie(String source){
+        Map<String, ArrayList<Integer>> concordatie = new HashMap<>();
         Set<String> regel = new HashSet<>();
         int line = 1;
 
@@ -75,9 +75,11 @@ public class WoordenWerker {
             }
             for (String uniqueSub : regel) {
                 if (!concordatie.containsKey(uniqueSub)) {
-                    concordatie.put(uniqueSub, Integer.toString(line));
+                    concordatie.put(uniqueSub, new ArrayList<Integer>(Arrays.asList(line)));
                 } else {
-                    concordatie.put(uniqueSub, concordatie.get(uniqueSub) + ", " + Integer.toString(line));
+                    ArrayList<Integer> temp = concordatie.get(uniqueSub);
+                    temp.add(line);
+                    concordatie.put(uniqueSub, temp);
                 }
             }
             regel.clear();
