@@ -6,6 +6,7 @@
 package woordenapplicatie.gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,6 +23,18 @@ public class WoordenWerker {
     
     public WoordenWerker(){
     }
+    
+    public ArrayList<Integer> aantal(String source){
+        int wordCount = 0;
+        Set<String> uniqueWords = new HashSet<>();
+        
+        for (String s : woordenOpsplitsen(source)) {
+            wordCount++;
+            uniqueWords.add(s);
+        }
+        return new ArrayList<Integer>(Arrays.asList(wordCount, uniqueWords.size()));
+        
+    } 
     
     public TreeSet<String> sorteer(String source) {
         
@@ -77,7 +90,7 @@ public class WoordenWerker {
         ArrayList<String> sentences = new ArrayList<>();
 
         for (String s : source.replace(",", "").split("\n")) {
-            if (!s.equals("")) {
+            if (!"".equals(s)) {
                 sentences.add(s);
             }
         }
@@ -88,7 +101,7 @@ public class WoordenWerker {
         ArrayList<String> words = new ArrayList<>();
         for (String s : zinnenOpsplitsen(source)) {
             for (String w : s.split(" ")) {
-                if (!w.equals("")) {
+                if (!"".equals(w)) {
                     words.add(w);
                 }
             }

@@ -71,15 +71,8 @@ public class WoordenController implements Initializable {
     @FXML
     private void aantalAction(ActionEvent event) {
         //RunTime tijd = O(N)
-        int wordCount = 0;
-        Set<String> uniqueWords = new HashSet<>();
-
-        for (String s : ww.woordenOpsplitsen(this.taInput.getText())) {
-            System.out.println(s);
-            wordCount++;
-            uniqueWords.add(s);
-        }
-        this.taOutput.setText("Totaal aantal woorden:  " + wordCount + "\nAantal verschillende woorden:  " + uniqueWords.size());
+        ArrayList<Integer> counts = ww.aantal(this.taInput.getText());
+        this.taOutput.setText("Totaal aantal woorden:  " + counts.get(0) + "\nAantal verschillende woorden:  " + counts.get(1));
     }
 
     @FXML
