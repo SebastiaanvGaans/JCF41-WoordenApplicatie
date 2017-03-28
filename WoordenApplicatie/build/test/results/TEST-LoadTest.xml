@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="Flaptop" name="LoadTest" skipped="0" tests="4" time="0.141" timestamp="2017-03-28T07:04:06">
+<testsuite errors="0" failures="0" hostname="Flaptop" name="LoadTest" skipped="0" tests="4" time="0.156" timestamp="2017-03-28T07:30:28">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="NL" />
@@ -62,7 +62,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner LoadTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\test\results\TEST-LoadTest.xml crashfile=C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\junitvmwatcher7695364702333943912.properties propsfile=C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\junit7315169930338051225.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner LoadTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\test\results\TEST-LoadTest.xml crashfile=C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\junitvmwatcher4806399135677616888.properties propsfile=C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\build\junit4403481937663631930.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -106,7 +106,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="javac.includesfile.binary" value="C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\null1102162949" />
+    <property name="javac.includesfile.binary" value="C:\Users\Gebruiker\Documents\GitHub\JCF41-WoordenApplicatie\WoordenApplicatie\null144092708" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="javac.test.processorpath" value="C:\Program Files (x86)\Java\jdk1.8.0_25\jre/lib/javaws.jar:C:\Program Files (x86)\Java\jdk1.8.0_25\jre/lib/deploy.jar:C:\Program Files (x86)\Java\jdk1.8.0_25\jre/lib/plugin.jar:build/classes:C:\Program Files\NetBeans 8.0.1\platform\modules\ext\junit-4.10.jar" />
     <property name="netbeans.buildnumber" value="201411181905" />
@@ -426,10 +426,10 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="C:\Program Files\NetBeans 8.0.1\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="LoadTest" name="sorteerTest" time="0.015" />
-  <testcase classname="LoadTest" name="concordatieTest" time="0.0" />
-  <testcase classname="LoadTest" name="aantalTest" time="0.0" />
+  <testcase classname="LoadTest" name="concordatieTest" time="0.016" />
   <testcase classname="LoadTest" name="frequentieTest" time="0.047" />
+  <testcase classname="LoadTest" name="aantalTest" time="0.015" />
+  <testcase classname="LoadTest" name="sorteerTest" time="0.0" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

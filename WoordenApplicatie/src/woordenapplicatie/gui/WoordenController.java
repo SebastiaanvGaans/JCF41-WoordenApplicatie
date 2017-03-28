@@ -7,13 +7,8 @@ package woordenapplicatie.gui;
  */
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
