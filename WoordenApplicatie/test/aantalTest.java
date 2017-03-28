@@ -5,12 +5,12 @@
  */
 
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.util.Map;
+import java.util.TreeSet;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import woordenapplicatie.gui.WoordenWerker;
 
 /**
@@ -19,20 +19,46 @@ import woordenapplicatie.gui.WoordenWerker;
  */
 public class aantalTest {
     
+    StringBuilder sb = new StringBuilder();
+    WoordenWerker ww = new WoordenWerker();
+    int amount = 1000;
+    
     public aantalTest() {
     }
     
-    WoordenWerker ww = new WoordenWerker();
-
-    @Test
-    public void edgecaseAllSameTest(){
-        int amount = 1000;
-        StringBuilder sb = new StringBuilder();
+    @Before
+    public void setUp() {
+        
+        
         for(int i = 0; i<amount; i++){
             sb.append("test ");
         }
-        ArrayList<Integer> output = ww.aantal(sb.toString());
-        assertEquals(1,(int)output.get(1));
-        assertEquals(amount,(int)output.get(0));
+    }
+
+    @Test
+    public void edgecaseAllSameTest(){
+        ArrayList<Integer> outputAantal = ww.aantal(sb.toString());
+        assertEquals(1,(int)outputAantal.get(1));
+        assertEquals(amount,(int)outputAantal.get(0)); 
+        
+    }
+    
+    @Test
+    public void sorteerTest(){
+        TreeSet<String> outputSorteer = ww.sorteer(sb.toString());
+        assertTrue("test".equals(outputSorteer.first()));
+        assertEquals(outputSorteer.size(), 1);
+    }
+    
+    @Test
+    public void frequentieTest(){
+        Map<String, Integer> outputFrequentie = ww.frequentie(sb.toString());
+        assertEquals((int)outputFrequentie.get("test"), amount);
+    }
+    
+    @Test
+    public void concordantieTest(){
+        Map<String, ArrayList<Integer>> outputConcordantie = ww.concordatie(sb.toString());
+        assertEquals((int)outputConcordantie.get("test").get(0), 1);
     }
 }
